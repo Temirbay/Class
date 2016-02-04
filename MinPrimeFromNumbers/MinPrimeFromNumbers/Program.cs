@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaxFromStream
+namespace MinPrimeFromNumbers
 {
     class Program
     {
@@ -28,7 +28,7 @@ namespace MaxFromStream
                 for (int i = 2; i*i <= num; ++i)
                 {
                     if (num % i == 0) ok = false;
-                }    
+                }
                 if (ok == true)
                 {
                     if (num < MIN) MIN = num;
@@ -41,6 +41,7 @@ namespace MaxFromStream
             fw.Close();
             fread.Close();
             fwrite.Close();
+
         }
     }
 }
