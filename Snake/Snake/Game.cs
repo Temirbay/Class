@@ -42,7 +42,7 @@ namespace Snake
                     snake.move(-1, 0);
                 if (button.Key == ConsoleKey.RightArrow)
                     snake.move(1, 0);
-
+                
                 if (button.Key == ConsoleKey.F1)
                     Save();
                 if (button.Key == ConsoleKey.F2)

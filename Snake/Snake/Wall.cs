@@ -31,5 +31,14 @@ namespace Snake
                         body.Add(new Point(j, i)); 
                 }
         }
+
+        public bool FoodWallCollision (int a, int b)
+        {
+            foreach (Point p in body)
+                if (p.x == a && p.y == b)
+                    return true;
+
+            return false;
+        }
     }
 }

@@ -22,8 +22,14 @@ namespace Snake
                 body[i].x = body[i - 1].x;
                 body[i].y = body[i - 1].y;
             }
-            body[0].x += dx;
-            body[0].y += dy;
+
+            if (body[0].x + dx < 0) body[0].x = Console.WindowWidth - 1;
+            else if (body[0].x + dx > Console.WindowWidth - 1) body[0].x = 0;
+            else body[0].x += dx;
+
+            if (body[0].y + dy < 0) body[0].y = Console.WindowHeight - 1;
+            else if (body[0].y + dy > Console.WindowHeight - 1) body[0].y = 0;
+            else body[0].y += dy;
 
             if (body[0].x == Game.food.body[0].x &&
                 body[0].y == Game.food.body[0].y)
