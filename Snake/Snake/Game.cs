@@ -12,8 +12,9 @@ namespace Snake
         public static Snake snake = new Snake();
         public static Food food = new Food();
         public static Wall wall = new Wall();
+        public static int prevdx, prevdy;
 
-        bool GameOver = false;
+        public static bool GameOver = false;
 
         public Game() {
             Init();
@@ -49,6 +50,7 @@ namespace Snake
                     Resume();
 
                 GameOver = snake.CollisionWithWall();
+                GameOver = snake.CollisionWithSnake();
             }
             if (GameOver == true)
             {

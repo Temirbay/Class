@@ -17,6 +17,12 @@ namespace Snake
 
         public void move (int dx, int dy)
         {
+            if (0 - Game.prevdx == dx && 0 - Game.prevdy == dy && body.Count > 1)
+                return;
+
+            Game.prevdx = dx;
+            Game.prevdy = dy;
+            
             for (int i = body.Count-1; i > 0; --i)
             {
                 body[i].x = body[i - 1].x;
@@ -37,7 +43,7 @@ namespace Snake
                 body.Add(new Point(0, 0));
                 Game.food.SetNewPosition();
             }
-
+     
         }
         public bool CollisionWithWall ()
         {
@@ -48,6 +54,13 @@ namespace Snake
                     return true;
                 }
             }
+            return false;
+        }
+
+        public bool CollisionWithSnake ()
+        {
+            for (int i = body.Count - 1; i > 1; --i)
+                if (body[0].x == body[i].x && body[0].y == body[i].y) return true;
             return false;
         }
     }
