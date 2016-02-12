@@ -12,7 +12,7 @@ namespace Snake
         {
             color = ConsoleColor.Green;
             sign = 'O';
-            body.Add(new Point (0, 0));
+            body.Add(new Point (10, 10));
         }
 
         public void move (int dx, int dy)
@@ -43,8 +43,9 @@ namespace Snake
                 body.Add(new Point(0, 0));
                 Game.food.SetNewPosition();
             }
-     
         }
+
+
         public bool CollisionWithWall ()
         {
             foreach (Point p in Game.wall.body)
@@ -56,6 +57,7 @@ namespace Snake
             }
             return false;
         }
+
 
         public bool CollisionWithSnake ()
         {

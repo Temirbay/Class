@@ -50,6 +50,7 @@ namespace Snake
                     Resume();
 
                 GameOver = snake.CollisionWithWall();
+                if (GameOver == true) continue;
                 GameOver = snake.CollisionWithSnake();
             }
             if (GameOver == true)
@@ -65,17 +66,20 @@ namespace Snake
             Console.Clear();
             food.Draw();
             snake.Draw();
-            
             wall.Draw();
         }
         public void Save ()
         {
-
+            snake.Save();
+            food.Save();
+            wall.Save();
         }
 
         public void Resume ()
         {
-
+            snake.Resume();
+            food.Resume();
+            wall.Resume();
         }
 
     }
