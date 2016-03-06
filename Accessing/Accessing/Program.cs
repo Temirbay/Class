@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace Accessing
     {
           static void Main(string[] args)
             {
-                System.Console.WriteLine("Number of command line parameters = {0}", args.Length);
+                Console.WriteLine("Number of command line parameters = {0}", args.Length);
 
                 foreach (string s in args)
-                    System.Console.WriteLine(s);
+                    Console.WriteLine(s);
 
             Console.ReadKey();
             }

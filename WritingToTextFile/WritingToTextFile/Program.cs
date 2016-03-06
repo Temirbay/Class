@@ -13,9 +13,13 @@ namespace WritingToTextFile
         {
 
             string[] lines = { "Temirbay", "Miras", "Erzhanuly" };
-            File.WriteAllLines(@"C:\Users\Public\TestFolder\Name.txt", lines);
+            string Path = @"C:\Users\Public\TestFolder\Name.txt";
 
-            
+            if (!File.Exists(Path))
+                File.CreateText(Path);
+
+            File.WriteAllLines(Path, lines);
+
             string text = "A class is the most powerful data type in C#. Like a structure, " +
                            "a class defines the data and behavior of the data type. ";
             File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", text);

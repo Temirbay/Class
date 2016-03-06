@@ -12,6 +12,7 @@ namespace Snake
         public static Snake snake = new Snake();
         public static Food food = new Food();
         public static Wall wall = new Wall();
+        public static int level;
         public static int prevdx, prevdy;
 
         public static bool GameOver = false;
@@ -26,6 +27,7 @@ namespace Snake
         {
             food.SetNewPosition();
             wall.LoadLevel(1);
+            level = 1;
         }
         
 
@@ -44,9 +46,13 @@ namespace Snake
                 if (button.Key == ConsoleKey.RightArrow)
                     snake.move(1, 0);
                 
-                if (button.Key == ConsoleKey.F1)
-                    Save();
+                if (button.Key == ConsoleKey.F5)
+                {
+                    wall.LoadLevel(level + 1);
+                }
                 if (button.Key == ConsoleKey.F2)
+                    Save();
+                if (button.Key == ConsoleKey.F3)
                     Resume();
 
                 GameOver = snake.CollisionWithWall();
@@ -70,6 +76,7 @@ namespace Snake
         }
         public void Save ()
         {
+            Console.Clear();
             snake.Save();
             food.Save();
             wall.Save();
@@ -77,6 +84,7 @@ namespace Snake
 
         public void Resume ()
         {
+            Console.Clear();
             snake.Resume();
             food.Resume();
             wall.Resume();

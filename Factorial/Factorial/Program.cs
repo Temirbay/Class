@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,37 +23,33 @@ namespace Factorial
     {
         static int Main(string[] args)
         {
-            // Test if input arguments were supplied:
             if (args.Length == 0)
             {
-                System.Console.WriteLine("Please enter a numeric argument.");
-                System.Console.WriteLine("Usage: Factorial <num>");
+                Console.WriteLine("Please enter a numeric argument.");
+                Console.WriteLine("Usage: Factorial <num>");
+                Console.ReadKey();
                 return 1;
             }
 
-            // Try to convert the input arguments to numbers. This will throw
-            // an exception if the argument is not a number.
-            // num = int.Parse(args[0]);
             int num;
             bool test = int.TryParse(args[0], out num);
             if (test == false)
             {
-                System.Console.WriteLine("Please enter a numeric argument.");
-                System.Console.WriteLine("Usage: Factorial <num>");
+                Console.WriteLine("Please enter a numeric argument.");
+                Console.WriteLine("Usage: Factorial <num>");
+                Console.ReadKey();
                 return 1;
             }
-
-            // Calculate factorial.
+            
             long result = Function.Factorial(num);
 
-            // Print result.
             if (result == -1)
-                System.Console.WriteLine("Input must be >= 0 and <= 20.");
+                Console.WriteLine("Input must be >= 0 and <= 20.");
             else
-                System.Console.WriteLine("The Factorial of {0} is {1}.", num, result);
+                Console.WriteLine("The Factorial of {0} is {1}.", num, result);
 
-            return 0;
             Console.ReadKey();
+            return 0;
         }
     }
 }
