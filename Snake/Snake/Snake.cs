@@ -8,22 +8,45 @@ namespace Snake
 {
     public class Snake : Drawer
     {
-        public Snake ()
+        public override void Draw ()
+        {
+
+            for (int i = 0; i < body.Count; ++i)
+            {
+                if (i == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.SetCursorPosition(body[i].x, body[i].y);
+                    Console.Write("O");
+                }
+                else {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.SetCursorPosition(body[i].x, body[i].y);
+                    Console.Write("*");
+                }
+           }
+        }
+
+        public Snake()
         {
             color = ConsoleColor.Green;
             sign = 'O';
-            body.Add(new Point (10, 10));
+            body.Add(new Point(10, 10));
         }
 
-        public void move (int dx, int dy)
+        public void move(int dx, int dy)
         {
+            Console.SetCursorPosition(body[body.Count - 1].x, body[body.Count - 1].y);
+            Console.Write(" ");
             if (0 - Game.prevdx == dx && 0 - Game.prevdy == dy && body.Count > 1)
-                return;
-
+            {
+                dx = Game.prevdx;
+                dy = Game.prevdy;
+            }
             Game.prevdx = dx;
             Game.prevdy = dy;
-            
-            for (int i = body.Count-1; i > 0; --i)
+
+            for (int i = body.Count - 1; i > 0; --i)
             {
                 body[i].x = body[i - 1].x;
                 body[i].y = body[i - 1].y;
@@ -46,7 +69,7 @@ namespace Snake
         }
 
 
-        public bool CollisionWithWall ()
+        public bool CollisionWithWall()
         {
             foreach (Point p in Game.wall.body)
             {
@@ -59,10 +82,20 @@ namespace Snake
         }
 
 
-        public bool CollisionWithSnake ()
+        public bool CollisionWithSnake()
         {
             for (int i = body.Count - 1; i > 1; --i)
                 if (body[0].x == body[i].x && body[0].y == body[i].y) return true;
+            return false;
+        }
+
+        public bool FoodWallCollision(int x, int y)
+        {
+            for (int i = body.Count - 1; i >= 0; --i)
+            {
+                if (x == body[i].x && y == body[i].y)
+                    return true;
+            }
             return false;
         }
     }

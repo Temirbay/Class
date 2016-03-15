@@ -17,7 +17,7 @@ namespace Snake
         public Drawer () { }
 
         
-        public void Draw ()
+        public virtual void Draw ()
         {
             Console.ForegroundColor = color;
             foreach (Point p in body)
@@ -47,7 +47,7 @@ namespace Snake
         public void Resume ()
         {
             string s = ""; 
-            if (sign == 'O') s = "snake.xml";
+            if (sign == 'O') s = "snake.ser";
             if (sign == '#') s = "wall.xml";
             if (sign == '$') s = "food.xml";
 

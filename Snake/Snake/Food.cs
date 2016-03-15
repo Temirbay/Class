@@ -27,7 +27,14 @@ namespace Snake
                 x = new Random().Next() % Width;
                 y = new Random().Next() % Height;
             }
-            
+
+            while (Game.snake.FoodWallCollision(x, y) == true)
+            {
+                x = new Random().Next() % Width;
+                y = new Random().Next() % Height;
+            }
+
+
             if (body.Count == 0)
                 body.Add(new Point(0, 0));
             else
