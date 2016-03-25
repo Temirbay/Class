@@ -101,7 +101,7 @@ namespace calc
         private void clear_click(object sender, EventArgs e)
         {
             Button b = sender as Button;
-            if (b.Text == "Back" && display.Text == "0") return;
+            if (b.Text == "Back" && (display.Text == "0" || display.Text == "")) return;
             switch (b.Text)
             {
                 case "CE":
@@ -117,6 +117,13 @@ namespace calc
                     break;
                 default: break;
             }
+        }
+
+        private void double_zero_click(object sender, EventArgs e)
+        {
+            if (display.Text != "0")
+                display.Text += "00";
+            else return;
         }
     }
 }

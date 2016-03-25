@@ -48,6 +48,30 @@ namespace calc
                 case "mod":
                     result = first % second;
                     break;
+                case "sin":
+                    result = Math.Sin(first);
+                    break;
+                case "cos":
+                    result = Math.Cos(first);
+                    break;
+                case "tan":
+                    result = Math.Tan(first);
+                    break;
+                case "arcsin":
+                    result = Math.Asin(first);
+                    break;
+                case "arccos":
+                    result = Math.Acos(first);
+                    break;
+                case "arctan":
+                    result = Math.Atan(first);
+                    break;
+                case "log":
+                    result = Math.Log10(first);
+                    break;
+                case "10^x":
+                    result = Math.Pow (10, first);
+                    break;
                 default:
                     break;
             }
@@ -66,6 +90,5 @@ namespace calc
 
             return ans;
         }
-        
-}
+    }
 }
