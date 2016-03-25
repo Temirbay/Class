@@ -40,7 +40,6 @@ namespace Snake
         {
             Thread t = new Thread (MoveSnake);
             t.Start();
-           Draw();
             while (!GameOver)
             {
                 ConsoleKeyInfo button = Console.ReadKey();
