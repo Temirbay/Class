@@ -72,6 +72,9 @@ namespace calc
                 case "10^x":
                     result = Math.Pow (10, first);
                     break;
+                case "1/x":
+                    result = 1 / first;
+                    break;
                 default:
                     break;
             }

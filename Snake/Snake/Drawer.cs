@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace Snake
@@ -29,38 +30,67 @@ namespace Snake
         
         public void Save ()
         {
-            string s = "";
+            string fileName = "";
+            switch (sign)
+            {
+                case '#':
+                    fileName = "wall.ser";
+                    break;
+                case '$':
+                    fileName = "food.ser";
+                    break;
+                case 'o':
+                    fileName = "snake.ser";
+                    break;
+            }
 
-            if (sign == 'O') s = "snake.xml";
-            if (sign == '#') s = "wall.xml";
-            if (sign == '$') s = "food.xml";
+            BinaryFormatter b = new BinaryFormatter();
+            FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            b.Serialize(fs, this);
 
-            FileStream fs = new FileStream(s, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            XmlSerializer xs = new XmlSerializer(GetType());
-
-            xs.Serialize(fs, this);
             fs.Close();
         }
 
 
 
-        public void Resume ()
+        public void Resume()
         {
-            string s = ""; 
-            if (sign == 'O') s = "snake.ser";
-            if (sign == '#') s = "wall.xml";
-            if (sign == '$') s = "food.xml";
-
-            FileStream fs = new FileStream(s, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            XmlSerializer xs = new XmlSerializer(GetType());
-
-            if (sign == '$') Game.food = xs.Deserialize(fs) as Food;
-            if (sign == '#') Game.wall = xs.Deserialize(fs) as Wall;
-            if (sign == 'O') Game.snake = xs.Deserialize(fs) as Snake;
-
-            File.Delete(s);
+            string fileName = "";
+            switch (sign)
+            {
+                case '#':
+                    fileName = "wall.ser";
+                    break;
+                case '$':
+                    fileName = "food.ser";
+                    break;
+                case 'o':
+                    fileName = "snake.ser";
+                    break;
+            }
+            FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            BinaryFormatter b = new BinaryFormatter();
+            switch (sign)
+            {
+                    case '#':
+                        Game.wall.body.Clear();
+                        Game.wall = b.Deserialize(fs) as Wall;
+                        break;
+                    case '$':
+                        Game.food.body.Clear();
+                        Game.food = b.Deserialize(fs) as Food;
+                        break;
+                    case 'o':
+                        Game.snake.body.Clear();
+                        Game.snake = b.Deserialize(fs) as Snake;
+                        break;
+            }
             
-            fs.Close(); 
+
+
+                fs.Close();
+
+
         }
     }
 }

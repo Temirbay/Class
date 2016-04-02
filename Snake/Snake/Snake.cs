@@ -36,6 +36,8 @@ namespace Snake
 
         public void move(int dx, int dy)
         {
+            
+
             Console.SetCursorPosition(body[body.Count - 1].x, body[body.Count - 1].y);
             Console.Write(" ");
             if (0 - Game.prevdx == dx && 0 - Game.prevdy == dy && body.Count > 1)

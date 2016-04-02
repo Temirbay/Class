@@ -14,6 +14,8 @@ namespace calc
     {
         private bool answered = false;
         private Calculate calc = new Calculate();
+        private double temp;
+        private bool ok = false;
         public Form1()
         {
             
@@ -22,6 +24,7 @@ namespace calc
 
         private void num_click(object sender, EventArgs e)
         {
+            ok = false;
             if (answered) { display.Text = ""; answered = false; }
             if (display.Text == "0") display.Text = "";
             Button b = sender as Button;
@@ -30,6 +33,7 @@ namespace calc
 
         private void operation_click(object sender, EventArgs e)
         {
+            ok = false;
             Button b = sender as Button;
             calc.first = double.Parse(display.Text);
             calc.operation = b.Text;
@@ -38,20 +42,34 @@ namespace calc
 
         private void result_click(object sender, EventArgs e)
         {
+            if (ok == false) temp = calc.second;
+            if (answered == true)
+            {
+                ok = true;
+                calc.first = temp;
+            }  
+              
             calc.second = double.Parse(display.Text);
             calc.Calc();
+
+            
             display.Text = calc.Result.ToString();
+            
             answered = true;
         }
         
         private void dot_click(object sender, EventArgs e)
         {
-            if (!display.Text.Contains(","))
+            ok = false;
+            if (display.Text == "")
+                display.Text += "0,";
+            else if (!display.Text.Contains(",")) 
                 display.Text += ",";
         }
 
         private void memory_click(object sender, EventArgs e)
         {
+            ok = false;
             Button b = sender as Button;
             
             switch (b.Text)
@@ -82,6 +100,7 @@ namespace calc
 
         private void operation_for_once_click(object sender, EventArgs e)
         {
+            ok = false;
             Button b = sender as Button;
             double num = double.Parse(display.Text);
             calc.first = num;
@@ -93,6 +112,7 @@ namespace calc
 
         private void sign_click(object sender, EventArgs e)
         {
+            ok = false;
             double num = double.Parse(display.Text);
             num *= -1;
             display.Text = num.ToString();
@@ -100,6 +120,7 @@ namespace calc
 
         private void clear_click(object sender, EventArgs e)
         {
+            ok = false;
             Button b = sender as Button;
             if (b.Text == "Back" && (display.Text == "0" || display.Text == "")) return;
             switch (b.Text)
@@ -121,9 +142,15 @@ namespace calc
 
         private void double_zero_click(object sender, EventArgs e)
         {
+            ok = false;
             if (display.Text != "0")
                 display.Text += "00";
             else return;
+        }
+
+        private void display_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

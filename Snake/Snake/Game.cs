@@ -13,11 +13,12 @@ namespace Snake
         public static Snake snake = new Snake();
         public static Food food = new Food();
         public static Wall wall = new Wall();
-        public static int level;
+        public static int level = 1;
         public static int prevdx, prevdy;
         public enum Direction {up, down, right, left};
         public static Direction direction;
-        public static int speed = 50;
+        public static int speed = 100;
+        public static Thread t = new Thread(MoveSnake);
 
         public static bool GameOver = false;
 
@@ -25,20 +26,17 @@ namespace Snake
         {
             Init();
             Play();
-
         }
 
-        public void Init()
+        public static void Init()
         {
             food.SetNewPosition();
-            wall.LoadLevel(1);
-            level = 1;
+            wall.LoadLevel(level);
         }
 
 
         public void Play()
         {
-            Thread t = new Thread (MoveSnake);
             t.Start();
             while (!GameOver)
             {
@@ -51,30 +49,25 @@ namespace Snake
                     direction = Direction.left;
                 if (button.Key == ConsoleKey.RightArrow)
                     direction = Direction.right;
-
-                if (button.Key == ConsoleKey.F5)
-                {
-                    wall.LoadLevel(level + 1);
-                }
                 if (button.Key == ConsoleKey.F2)
                     Save();
                 if (button.Key == ConsoleKey.F3)
                     Resume();
-
-                GameOver = snake.CollisionWithWall();
-                if (GameOver == true) continue;
-                GameOver = snake.CollisionWithSnake();
             }
-            if (GameOver == true)
-            {
-                Console.Clear();
-                Console.WriteLine("Game Over!!!!");
-                Console.ReadKey();
-            }
+            
         }
 
         public static void MoveSnake (object state)
         {
+            if (snake.body.Count % 4 == 0) {
+                level++;
+                Console.Clear();
+                wall.body.Clear();
+                wall.LoadLevel(level);
+                Draw();
+                speed -= 50;
+            }
+
 
             while (!GameOver)
             {
@@ -95,6 +88,7 @@ namespace Snake
                     default: break;
                 }
                 Draw();
+                
                 Thread.Sleep(speed);
             }
 
@@ -102,7 +96,7 @@ namespace Snake
 
         public static void Draw()
         {
-            Console.Clear();
+            //Console.Clear();
             food.Draw();
             snake.Draw();
             wall.Draw();
