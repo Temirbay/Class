@@ -140,18 +140,19 @@ namespace Picture
 
             g.FillEllipse(new SolidBrush(Color.Green), 375, 225, 25, 8);
             g.FillEllipse(new SolidBrush(Color.Green), 383, 216, 8, 25);
-
+            
             g.FillRectangle(new SolidBrush(Color.White), 540, 20, 220, 40);
+             g.DrawRectangle(pnr, 540, 20, 220, 40);
 
-            g.DrawRectangle(pnr, 540, 20, 220, 40);
-
+            
             using (Font font = new Font("Arial", 12, FontStyle.Italic))
             {
                 Rectangle rect = new Rectangle(545, 30, 220, 75);
                 g.DrawString("Level: 1 Score 200 Live: ***", font, Brushes.Black, rect);
             }
-
+            
             g.DrawRectangle(p, 5, 5, 770, 485);
+            
         }
     }
 }
