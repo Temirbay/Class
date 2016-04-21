@@ -26,6 +26,12 @@ namespace Paint
         {
             drawer.ok = true;
             drawer.prev = e.Location;
+
+            if (drawer.shape == Drawer.Shape.Brush)
+            {
+                drawer.fill(e.Location);
+            }
+            
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -68,10 +74,21 @@ namespace Paint
             drawer.shape = Drawer.Shape.Raser;
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            drawer.shape = Drawer.Shape.Triangle;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            drawer.shape = Drawer.Shape.Brush;
+        }
+
         private void button6_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
             drawer.pen = new Pen(colorDialog1.Color);
+            button6.BackColor = drawer.pen.Color;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,7 +126,8 @@ namespace Paint
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+           Application.Exit();    
         }
+        
     }
 }
