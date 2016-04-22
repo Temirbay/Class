@@ -94,6 +94,7 @@ namespace Paint
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             drawer.g.Clear(Color.White);
+            if (drawer.path != null)
             drawer.path.Reset();
             drawer.picture.Refresh();
 

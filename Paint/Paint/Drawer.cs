@@ -60,7 +60,9 @@ namespace Paint
             if (path != null)
             {
                 g.DrawPath(pen, path);
+                path = null;
             }
+            
         }
 
         public void Draw (Point cur) 
