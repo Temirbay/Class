@@ -1,0 +1,57 @@
+# include <iostream>
+# include <fstream>
+# include <cstdio>
+# include <cstdlib>
+# include <queue>
+
+using namespace std;
+
+const int N = 1000;
+const int INF = int(2e9)+1;
+ 
+int dx[8] = {0, 0, 1, -1, 1, -1, 1, -1};
+int dy[8] = {1, -1, 0, 0, 1, 1, -1, -1}; 
+ 
+int MAX = -INF;
+int a[N][N], used[N][N], d[N][N], n, m;
+queue <pair <int, int> > q; 
+ 
+int main () {
+	cin >> n >> m;
+	
+	for (int i = 1; i <= n; ++i)
+	 for (int j = 1; j <= m; ++j)
+		cin >> a[i][j];
+	
+	for (int i = 1; i <= n; ++i)
+	 for (int j = 1; j <= m; ++j)
+	 	if (a[i][j] && !used[i][j]) {
+	 		q.push(make_pair(i, j));
+	 		
+			while (!q.empty()) {
+	 			int x = q.front().first;
+				int y = q.front().second;
+				q.pop();
+				
+				for (int k = 0; k < 8; ++k) {
+					int xx = x + dx[k];
+					int yy = y + dy[k];
+					
+					if (1 > xx || xx > n || 1 > yy || yy > m) continue;
+					if (!a[xx][yy]) continue;
+					if (used[xx][yy]) continue;
+					q.push(make_pair(xx, yy));
+					used[xx][yy] = 1;
+					d[i][j]++;					
+				}	
+			}
+		}
+		 
+	for (int i = 1; i <= n; ++i) 
+	 for (int j = 1; j <= m; ++j)
+		if (d[i][j] > MAX)
+			MAX = d[i][j];
+		
+	cout << MAX << endl;		
+	return 0;
+}
